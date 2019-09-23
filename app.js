@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var sql = require('./middleware/sql');
 var indexRouter = require('./routes/index');
 var gamesRouter = require('./routes/games');
 
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/users', indexRouter);
 //games list workbench
 app.use('/games', gamesRouter);
 
@@ -28,6 +29,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+sql.openDB();
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

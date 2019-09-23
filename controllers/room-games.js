@@ -1,3 +1,8 @@
+let Game = require('../src/game')
+
+
+
+
 
 /**
  * List all games

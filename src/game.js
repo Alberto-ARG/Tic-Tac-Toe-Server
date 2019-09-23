@@ -6,6 +6,7 @@ const { FalsePosException } =  require("./FalsePos");
    */
 const StateGame = {
     PLAYING: 1,
+    DRAW : 3,
     FINISH: 2,
 };
  /**
@@ -67,29 +68,71 @@ class Game {
         throw new FalseMoveException('Wrong Move you can*t overwrite the enemy move');
       }
      }
+     if(hasAwiner(pattern)){
+       // a chapion here
+       stopthegame(StateGame.FINISH)
+     }
+     else{
+       // check if board is complete and if is draw de game
+       if(checkboard()){
+        ///set game draw
+        stopthegame(StateGame.DRAW)
+       }
+
+     }
+    }
+    
+    stopthegame(status){
+      this.status=status;
     }
 
-    checkBoardState(pattern)
-    {
-        //search Patterns
-      /*  0 0 0  
+    checkboard() {
+      for (let y = 0; index < Board.length; x++) {
+        for (let x = 0; index < Board.length; y++) {
+            if((Board[y][x]===0))
+           {
+              return false;
+          }          
+        }
+      }
+      
+      return true;
+    }
+    hasAwiner(pattern) {
+      //search Patterns
+      /*  0 0 0 
           0 0 0
           0 0 0 */ 
-          // linear chances    
-       
-        for (let x = 0; x < Board.length; x++) {
-            for (let y = 0; y < Board.length; y++) {
-              if (this.Board[x][y]===0){
-                continue;
-              }
-              if (this.Board[x][y]===pattern){
-                continue;
-              }
-              
-          }          
-      }
-
+      // linear check 
+     if((Board[0][0]&&Board[0][1]&&Board[0][1])===pattern){
+       return true;
+     }
+     if((Board[1][0]&&Board[1][1]&&Board[1][1])===pattern){
+      return true;
     }
+    if((Board[2][0]&&Board[2][1]&&Board[2][1])===pattern){
+      return true;
+    }
+    // vertical check 
+    if((Board[0][0]&&Board[1][0]&&Board[2][0])===pattern){
+      return true;
+    }
+    if((Board[0][1]&&Board[1][1]&&Board[2][1])===pattern){
+     return true;
+    }
+    if((Board[0][2]&&Board[1][2]&&Board[2][2])===pattern){
+      return true;
+    }
+    // Diagonal check  
+    if((Board[0][0]&&Board[1][1]&&Board[2][2])===pattern){
+      return true;
+    }
+    if((Board[0][2]&&Board[1][1]&&Board[2][0])===pattern){
+      return true;
+    } 
+      return false;
+    }
+
   }
 
   module.exports = Game;
