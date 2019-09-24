@@ -12,6 +12,11 @@ router.get('/',userf.list);
 * 
 */
 router.post('/new',userf.myValidators,userf.newUser);
+/*
+*
+* Generate token and set cookies for walkaround in api . 
+*/
+router.post('/login',userf.checkinput,userf.login);
 
 
 module.exports = router;

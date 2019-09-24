@@ -12,7 +12,7 @@ let Game = require('../src/game')
  */
 exports.list = async function (req,res,next){
     // get all games from DB    
-
+    res.status(200).send('holi que deliii');
     next();
 }
 
