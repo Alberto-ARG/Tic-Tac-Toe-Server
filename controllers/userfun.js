@@ -2,7 +2,9 @@ let sql = require('../middleware/sql')
 
 const { body,validationResult,sanitizeBody,check } = require('express-validator');
 
-
+/* middleware sanitizatio chain for new users post request
+*
+*/
 exports.myValidators = [
   sanitizeBody('username').trim().escape(),
 
@@ -22,13 +24,21 @@ exports.myValidators = [
 /* create a new user
 *
 */
-exports.newUser = async (req, res) => {
+exports.newUser = async (req, res,next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
   else{
-    res.send(req.body);
+    // the username can be replicated this is a an error
+    sql.userNew(req.body.username,req.body.password,(error) =>{
+      if (typeof error !== 'undefined'){
+        return res.status(200).json({name: req.body.username, password :req.body.password})
+      }
+      console.log(error);     
+      res.status(500).json({error});
+    })
+   
   }
   
   
@@ -38,7 +48,11 @@ exports.newUser = async (req, res) => {
 *
 */
 exports.list = async function (req,res,next){
+  sql.getallusers((rows)=>{
+    res.send(rows);
+  });
   
+ 
 }
     
 
