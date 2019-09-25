@@ -32,6 +32,17 @@ exports.newgame = async function  (name_game,jugador_id,jugador2_id,state) {
     db.run('INSERT INTO games (game_id,name_game,jugador_id,jugador2_id,state) VALUES ( null,'+name_game+','+jugador_id+','+jugador2_id+',+'+state+');');   
   });
   }
+
+
+
+
+
+
+
+
+
+
+  
   /* 
   *
   * insert a new user
