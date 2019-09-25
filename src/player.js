@@ -4,22 +4,19 @@
  * 
  */
 class Player {
-    constructor(name) {
+    constructor(name,password,token) {
       this.name = name;
+      this.password=password;
+    this.token=token;
       this.pattern=0;
     }
     setyoupattern(number){
-      pattern = number;
+      this.pattern = number;
     }
     changename(namechang) {
       this.name=namechang;
     }
-    get name(){
-      return name;
-    }
-    get pattern(){
-      return pattern;
-    }
-    
+   
+        
 }
 module.exports = Player;

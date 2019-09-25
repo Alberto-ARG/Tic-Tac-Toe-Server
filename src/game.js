@@ -5,6 +5,7 @@ const { FalsePosException } =  require("./FalsePos");
    * status actual session 
    */
 const StateGame = {
+    WaitForPlayer : 0,
     PLAYING: 1,
     DRAW : 3,
     FINISH: 2,
@@ -18,27 +19,29 @@ const StateGame = {
    */
 class Game {   
     
-    constructor(partyname,nameplayer1,nameplayer2) {
-    /*  0 0 0  
-        0 0 0
-        0 0 0 */      
-      Board = [
-          [0, 0, 0],
-          [0, 0, 0],
-          [0, 0, 0],
-      ];    
-      this.partyname = partyname;
-      this.player1 = new Player(nameplayer1);
-      this.player2 = new Player(nameplayer2);
-      this.player.setyoupattern(1);
+   
+    constructor(partyname,player) {
+      /*  0 0 0  
+          0 0 0
+          0 0 0 */      
+      this.Board = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+        ];    
+        this.partyname = partyname;
+        this.player1 = player;
+        //this.player2 = new Player(nameplayer2);
+        this.player1.setyoupattern(1);
+        //this.player2.setyoupattern(2);
+        this.status = StateGame.WaitForPlayer;
+      }    
+    setplayer2(player){
+      this.player2 = player;
       this.player2.setyoupattern(2);
-      status = StateGame.PLAYING;
+      this.status = StateGame.PLAYING;
     }
     
-    
-    showBattle(){
-      return "Actual Game from" + this.player1.name() + "Vs " + this.player2.name() ;
-    }
     /**
     * this is how the player make a move...
     * 

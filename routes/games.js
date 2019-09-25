@@ -6,7 +6,7 @@ var roomgames = require('../controllers/room-games')
 
 router.get('/list', roomgames.list)
 
-router.post('/new', roomgames.newgame)
+router.post('/new',roomgames.newgameinputcheck, roomgames.newgame)
 
 router.delete('/del', roomgames.delgame)
 
